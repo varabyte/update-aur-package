@@ -9,22 +9,23 @@ export HOME=/home/builder
 echo "::group::Setup"
 
 echo "Getting AUR SSH Public keys"
-ssh-keyscan aur.archlinux.org >> $HOME/.ssh/known_hosts
+ssh-keyscan aur.archlinux.org >>$HOME/.ssh/known_hosts
 
 echo "Writing SSH Private keys to file"
-echo -e "${INPUT_SSH_PRIVATE_KEY//_/\\n}" > $HOME/.ssh/aur
+echo -e "${INPUT_SSH_PRIVATE_KEY//_/\\n}" >$HOME/.ssh/aur
 
 chmod 600 $HOME/.ssh/aur*
 
-echo "Starting SSH Agent and adding the key"
-
-eval $(ssh-agent)
-expect << EOF
+if [ -z "$INPUT_SSH_PRIVATE_KEY_PASSWORD"]; then
+  echo "Starting SSH Agent and adding the key"
+  eval $(ssh-agent)
+  expect <<EOF
   spawn ssh-add $HOME/.ssh/aur
   expect "Enter passphrase"
   send "$INPUT_SSH_PRIVATE_KEY_PASSWORD\r"
   expect eof
 EOF
+fi
 
 echo "Setting up Git"
 git config --global user.name "$INPUT_COMMIT_USERNAME"
@@ -50,7 +51,7 @@ echo "Building and installing dependencies"
 makepkg --noconfirm -s
 
 echo "Updating SRCINFO"
-makepkg --printsrcinfo > .SRCINFO
+makepkg --printsrcinfo >.SRCINFO
 
 echo "::endgroup::Build"
 
@@ -59,7 +60,7 @@ echo "::group::Publish"
 echo "Publishing new version"
 # Update aur
 git add PKGBUILD .SRCINFO
-git commit --allow-empty  -m "Update to $NEW_RELEASE"
+git commit --allow-empty -m "Update to $NEW_RELEASE"
 git push
 
 echo "Publish Done"
