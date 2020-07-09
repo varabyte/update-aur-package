@@ -1,12 +1,27 @@
-name: 'Container Action Template'
-description: 'Get started with Container actions'
-author: 'GitHub'
-inputs: 
-  myInput:
-    description: 'Input to use'
-    default: 'world'
+name: Create AUR Release
+description: Create a AUR release on version bump
+author: ATiltedTree
+branding:
+  color: green
+  icon: upload
+inputs:
+  package_name:
+    description: The name of the AUR package to update.
+    required: true
+  commit_username:
+    description: The username to use when creating the new commit.
+    required: true
+  commit_email:
+    description: The email to use when creating the new commit.
+    required: true
+  ssh_private_key:
+    description: The SSH private key with access to the specified AUR package.
+    required: true
+  ssh_private_key_password:
+    description: The Password for the SSH private key.
+    required: false
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: docker
+  image: Dockerfile
   args:
-    - ${{ inputs.myInput }}
+    - ${{ inputs.package_name }} ${{ inputs.commit_username }} ${{ inputs.commit_email }} ${{ inputs.ssh_private_key }} ${{ inputs.ssh_private_key_password }}

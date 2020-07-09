@@ -1,0 +1,14 @@
+name: Deploy
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  bump_major:
+    name: Bump Major Version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: nowactions/update-majorver@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
