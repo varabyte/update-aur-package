@@ -16,17 +16,6 @@ echo -e "${INPUT_SSH_PRIVATE_KEY//_/\\n}" >$HOME/.ssh/aur
 
 chmod 600 $HOME/.ssh/aur*
 
-if [ -z "$INPUT_SSH_PRIVATE_KEY_PASSWORD"]; then
-  echo "Starting SSH Agent and adding the key"
-  eval $(ssh-agent)
-  expect <<EOF
-  spawn ssh-add $HOME/.ssh/aur
-  expect "Enter passphrase"
-  send "$INPUT_SSH_PRIVATE_KEY_PASSWORD\r"
-  expect eof
-EOF
-fi
-
 echo "Setting up Git"
 git config --global user.name "$INPUT_COMMIT_USERNAME"
 git config --global user.email "$INPUT_COMMIT_EMAIL"
@@ -48,7 +37,7 @@ echo "::endgroup::Setup"
 echo "::group::Build"
 
 echo "Building and installing dependencies"
-makepkg --noconfirm -s
+makepkg --noconfirm -s -c
 
 echo "Updating SRCINFO"
 makepkg --printsrcinfo >.SRCINFO

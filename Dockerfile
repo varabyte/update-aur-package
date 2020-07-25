@@ -1,6 +1,6 @@
 FROM archlinux
 
-RUN pacman --needed --noconfirm -Syu base base-devel git perl openssh
+RUN pacman --needed --noconfirm -Syu base base-devel git perl
 
 # Add non-root user
 RUN useradd -m builder && \

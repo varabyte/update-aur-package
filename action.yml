@@ -17,11 +17,8 @@ inputs:
   ssh_private_key:
     description: The SSH private key with access to the specified AUR package.
     required: true
-  ssh_private_key_password:
-    description: The Password for the SSH private key.
-    required: false
 runs:
   using: docker
   image: Dockerfile
   args:
-    - ${{ inputs.package_name }} ${{ inputs.commit_username }} ${{ inputs.commit_email }} ${{ inputs.ssh_private_key }} ${{ inputs.ssh_private_key_password }}
+    - ${{ inputs.package_name }} ${{ inputs.commit_username }} ${{ inputs.commit_email }} ${{ inputs.ssh_private_key }}
