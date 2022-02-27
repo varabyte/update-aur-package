@@ -1,9 +1,9 @@
-name: Create AUR Release
+name: Update AUR Package
 description: Create a AUR release on version bump
-author: ATiltedTree
+author: aksh1618
 branding:
-  color: green
-  icon: upload
+  color: blue
+  icon: navigation-2
 inputs:
   tag_version_prefix:
     description: The prefix of the version used in the tag. (`v` by default).

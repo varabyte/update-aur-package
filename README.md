@@ -1,6 +1,6 @@
-# Create AUR Release
+# Update AUR Package
 
-A simple yet powerful action to automatically update your AUR package to the version you just tagged on github.
+A simple yet powerful action to automatically update your AUR package to the version you just tagged on github. Minorly tweaked variant of [ATiltedTree/create-aur-release](https://github.com/ATiltedTree/create-aur-release).
 
 ## Inputs
 
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Publish AUR package
-        uses: ATiltedTree/create-aur-release@v1
+        uses: aksh1618/update-aur-package@v1.1
         with:
           tag_version_prefix: cli-v
           package_name: my-awesome-package
