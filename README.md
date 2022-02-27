@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Publish AUR package
-        uses: aksh1618/update-aur-package@v1.1
+        uses: aksh1618/update-aur-package@v1.0.5
         with:
           tag_version_prefix: cli-v
           package_name: my-awesome-package
