@@ -1,6 +1,6 @@
-FROM archlinux
+FROM archlinux:base-devel
 
-RUN pacman --needed --noconfirm -Syu base base-devel pacman-contrib git openssh
+RUN pacman --needed --noconfirm -Syu pacman-contrib git openssh
 
 # Add non-root user
 RUN useradd -m builder && \
