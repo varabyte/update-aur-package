@@ -5,6 +5,10 @@ branding:
   color: green
   icon: upload
 inputs:
+  tag_version_prefix:
+    description: The prefix of the version used in the tag. (`v` by default).
+    required: true
+    default: v
   package_name:
     description: The name of the AUR package to update.
     required: true
@@ -21,4 +25,4 @@ runs:
   using: docker
   image: Dockerfile
   args:
-    - ${{ inputs.package_name }} ${{ inputs.commit_username }} ${{ inputs.commit_email }} ${{ inputs.ssh_private_key }}
+    - ${{ inputs.tag_version_prefix }} ${{ inputs.package_name }} ${{ inputs.commit_username }} ${{ inputs.commit_email }} ${{ inputs.ssh_private_key }}

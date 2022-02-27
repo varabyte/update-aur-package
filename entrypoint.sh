@@ -2,7 +2,7 @@
 
 set -o errexit -o pipefail -o nounset
 
-NEW_RELEASE=${GITHUB_REF##*/v}
+NEW_RELEASE=${GITHUB_REF##*/${INPUT_TAG_VERSION_PREFIX:-v}}
 
 export HOME=/home/builder
 
