@@ -1,14 +1,17 @@
 name: Update AUR Package
 description: Create a AUR release on version bump
-author: aksh1618
+author: varabyte
 branding:
   color: blue
   icon: navigation-2
 inputs:
-  tag_version_prefix:
-    description: The prefix of the version used in the tag. (`v` by default).
+  dry_run:
+    description: Whether to actually upload the AUR release or just log.
+    required: false
+    default: "false"
+  version:
+    description: The version to use for this release, without any prefixes (e.g. `1.2.3`).
     required: true
-    default: v
   package_name:
     description: The name of the AUR package to update.
     required: true
@@ -25,4 +28,4 @@ runs:
   using: docker
   image: Dockerfile
   args:
-    - ${{ inputs.tag_version_prefix }} ${{ inputs.package_name }} ${{ inputs.commit_username }} ${{ inputs.commit_email }} ${{ inputs.ssh_private_key }}
+    - ${{ inputs.tag_dry_run }} ${{ inputs.tag_version_prefix }} ${{ inputs.package_name }} ${{ inputs.commit_username }} ${{ inputs.commit_email }} ${{ inputs.ssh_private_key }}

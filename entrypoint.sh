@@ -2,7 +2,7 @@
 
 set -o errexit -o pipefail -o nounset
 
-NEW_RELEASE=${GITHUB_REF##*/${INPUT_TAG_VERSION_PREFIX:-v}}
+NEW_RELEASE=${INPUT_TAG_VERSION}
 
 export HOME=/home/builder
 
@@ -30,6 +30,8 @@ cd "$INPUT_PACKAGE_NAME"
 echo "Setting version: ${NEW_RELEASE}"
 sed -i "s/pkgver=.*$/pkgver=${NEW_RELEASE}/" PKGBUILD
 sed -i "s/pkgrel=.*$/pkgrel=1/" PKGBUILD
+# This only has to be done once -- we need to update a stale URL
+sed -i 's|https://github.com/varabyte/kobweb/releases/download/cli-v|https://github.com/varabyte/kobweb-cli/releases/download/v|' PKGBUILD
 updpkgsums
 
 echo "::endgroup::Setup"
@@ -50,7 +52,14 @@ echo "Publishing new version"
 # Update aur
 git add PKGBUILD .SRCINFO
 git commit --allow-empty -m "Update to $NEW_RELEASE"
-git push
+
+if [ "$INPUT_DRY_RUN" = "true" ]; then
+   echo "!!!!!!! DRY RUN !!!!!!!"
+   echo "Would have uploaded the following PKGBUILD:"
+   cat PKGBUILD
+else
+   git push
+fi
 
 echo "Publish Done"
 
