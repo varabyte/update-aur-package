@@ -2,7 +2,7 @@
 
 set -o errexit -o pipefail -o nounset
 
-NEW_RELEASE=${INPUT_TAG_VERSION}
+NEW_RELEASE=${INPUT_VERSION}
 
 export HOME=/home/builder
 
