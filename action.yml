@@ -28,4 +28,4 @@ runs:
   using: docker
   image: Dockerfile
   args:
-    - ${{ inputs.tag_dry_run }} ${{ inputs.tag_version_prefix }} ${{ inputs.package_name }} ${{ inputs.commit_username }} ${{ inputs.commit_email }} ${{ inputs.ssh_private_key }}
+    - ${{ inputs.tag_dry_run }} ${{ inputs.tag_version }} ${{ inputs.package_name }} ${{ inputs.commit_username }} ${{ inputs.commit_email }} ${{ inputs.ssh_private_key }}
