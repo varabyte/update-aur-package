@@ -1,5 +1,5 @@
-name: Update AUR Package
-description: Create a AUR release on version bump
+name: Publish an AUR Package
+description: Create and push an AUR release on version bump
 author: varabyte
 branding:
   color: blue
