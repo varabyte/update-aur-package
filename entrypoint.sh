@@ -30,8 +30,11 @@ cd "$INPUT_PACKAGE_NAME"
 echo "Setting version: ${NEW_RELEASE}"
 sed -i "s/pkgver=.*$/pkgver=${NEW_RELEASE}/" PKGBUILD
 sed -i "s/pkgrel=.*$/pkgrel=1/" PKGBUILD
-# This only has to be done once -- we need to update a stale URL
+# This only has to be done once -- stale URL and stale description
+sed -i "s/pkgdesc=.*$/pkgdesc='Set up and manage your Kobweb-enhanced Compose HTML app'/" PKGBUILD
 sed -i 's|https://github.com/varabyte/kobweb/releases/download/cli-v|https://github.com/varabyte/kobweb-cli/releases/download/v|' PKGBUILD
+# End only needs to do once
+
 updpkgsums
 
 echo "::endgroup::Setup"
